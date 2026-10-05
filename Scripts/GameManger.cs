@@ -17,7 +17,7 @@ public partial class GameManger : Node
 	private AchievementSystem CreateAchievementSystem()
 	{
 		var achievementSystem = new AchievementSystem();
-		_player.Inventory.Subscribe(achievementSystem);
+		achievementSystem.Subscribe(_player.Inventory);
 		return achievementSystem;
 	}
 

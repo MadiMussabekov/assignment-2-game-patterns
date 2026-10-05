@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 
-public class AchievementSystem : IInventoryObserver
+public class AchievementSystem
 {
 	private const int CoinCollectorGoal = 10;
 	private const int SpeedGoalCoins = 5;
@@ -12,7 +12,17 @@ public class AchievementSystem : IInventoryObserver
 	private bool _coinCollectorUnlocked;
 	private bool _speedyGatherUnlocked;
 
-	public void OnCoinCollected(int totalCoins)
+	public void Subscribe(Inventory inventory)
+	{
+		inventory.CoinCollected += OnCoinCollected;
+	}
+
+	public void Unsubscribe(Inventory inventory)
+	{
+		inventory.CoinCollected -= OnCoinCollected;
+	}
+
+	private void OnCoinCollected(int totalCoins)
 	{
 		CheckCoinCollectorAchievement(totalCoins);
 		CheckSpeedyGatherAchievement();
